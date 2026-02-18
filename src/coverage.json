@@ -1,0 +1,87 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-18T14:16:25.238Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 4,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-10",
+        "summary": "Adjust messaging and “send reminder as message” UX to work in shared/public mode without requiring users to enter Principal IDs.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/messaging/MessageComposer.tsx",
+          "frontend/src/components/reminders/SendReminderDialog.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/messaging/MessagesView.tsx",
+          "frontend/src/components/messaging/MessagesList.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/messaging/MessageComposer.tsx",
+          "frontend/src/components/reminders/SendReminderDialog.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/messaging/MessagesView.tsx",
+          "frontend/src/components/messaging/MessagesList.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Update the React app so it does not require Internet Identity login to use the reminders and messaging features; the main app UI must be accessible immediately on load.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/App.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Remove or disable all login/logout and first-time profile setup UI flows (including the login button and profile setup dialog) so the interface reflects a shared/public mode.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/layout/AppLayout.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/hooks/useCurrentUser.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/layout/AppLayout.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Change backend authorization logic so anonymous (unauthenticated) callers can create, read, update, and delete reminders, and can send/read/delete messages without receiving authorization traps.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
+    "frontend/src/components/layout/AppLayout.tsx",
+    "frontend/src/components/messaging/MessageComposer.tsx",
+    "frontend/src/components/messaging/MessagesList.tsx",
+    "frontend/src/components/messaging/MessagesView.tsx",
+    "frontend/src/components/reminders/SendReminderDialog.tsx",
+    "frontend/src/hooks/useQueries.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

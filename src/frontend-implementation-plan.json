@@ -1,0 +1,89 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "VoiceMate public mode (no Internet Identity login required)",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "summary": "Make the main app UI (Reminders and Messages) accessible immediately without an Internet Identity login gate.",
+      "acceptanceCriteria": [
+        "When opening the app in a fresh browser session, the user can access Reminders and Messages without seeing a login gate screen.",
+        "No UI flow blocks usage due to missing authentication (e.g., no forced login prompts)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Remove the unauthenticated landing/login gate and always render the main AppLayout with RemindersView/MessagesView on initial load; keep the existing ThemeProvider and Toaster wiring. Ensure no logic branches require identity before rendering the core UI."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update reminders/messages queries to work in public mode by fetching shared/public data without depending on an authenticated principal; remove any dependency on identity-gated calls during queryFn execution so queries run successfully for anonymous users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Remove/disable login/logout controls and first-time profile setup UI so the interface reflects shared/public mode with no Internet Identity wording.",
+      "acceptanceCriteria": [
+        "The header no longer shows a Login/Logout control.",
+        "The app does not prompt users to set up a profile name before using the app.",
+        "Any user-facing text referencing “Login with Internet Identity” or “Recipient’s Internet Identity Principal” is removed or replaced with public-mode wording in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Remove the LoginButton from the header UI and adjust header layout accordingly; ensure the navigation between Reminders and Messages remains available and functional."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Remove ProfileSetupDialog gating and any profile-setup logic/conditions so users are never prompted to set a name before using the app."
+        },
+        {
+          "path": "frontend/src/hooks/useCurrentUser.ts",
+          "operation": "modify",
+          "description": "Adjust the current-user helper to avoid implying authentication is required (e.g., ensure callers can safely use it when identity is absent and avoid encouraging login-dependent flows); keep it compatible with existing consumers."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Update messaging and “send reminder as message” UX for shared/public mode so sending does not require entering Principal IDs and messages remain usable without a user principal.",
+      "acceptanceCriteria": [
+        "The message composer does not require a recipient Principal ID field to send a message.",
+        "The “Send Reminder as Message” dialog does not require a recipient Principal ID field to send a reminder message.",
+        "Messages view remains usable without a user principal (e.g., it does not rely on per-user inbox/sent filtering that breaks without login)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/messaging/MessageComposer.tsx",
+          "operation": "modify",
+          "description": "Remove the recipient Principal ID input and validation; update the form so it only collects message content (including voice input) and can send in public mode without requiring any authentication-related user input."
+        },
+        {
+          "path": "frontend/src/components/reminders/SendReminderDialog.tsx",
+          "operation": "modify",
+          "description": "Remove the recipient Principal ID input and any related validation/help text (including references to Internet Identity); update copy to reflect shared/public sending behavior."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update useSendMessage and useSendReminderAsMessage mutations to no longer require a recipient string from the UI; internally use a shared/public recipient strategy compatible with the backend interface and ensure message/reminder-message send actions work without Principal text input."
+        },
+        {
+          "path": "frontend/src/components/messaging/MessagesView.tsx",
+          "operation": "modify",
+          "description": "Remove per-user inbox/sent filtering that depends on the current principal; present messages in a public/shared-friendly way (e.g., show all messages or a non-principal-based grouping) so the view remains functional when identity/principal is absent."
+        },
+        {
+          "path": "frontend/src/components/messaging/MessagesList.tsx",
+          "operation": "modify",
+          "description": "Update list rendering to remove reliance on current principal for display logic; adjust any 'From/To' labeling and delete-button rules so the UI remains coherent in shared/public mode."
+        }
+      ]
+    }
+  ]
+}

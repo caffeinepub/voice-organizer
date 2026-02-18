@@ -1,0 +1,68 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-react-app-so-it-does-not-require-internet-identity-login-to-use-the-reminders-and-messaging-features-the-main-app-ui-must-be-accessible-immediately-on-load",
+      "featureTitle": "Update the React app so it does not require Internet Identity login to use the reminders and messaging features; the main app UI must be accessible immediately on load.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-or-disable-all-login-logout-and-first-time-profile-setup-ui-flows-including-the-login-button-and-profile-setup-dialog-so-the-interface-reflects-a-shared-public-mode",
+      "featureTitle": "Remove or disable all login/logout and first-time profile setup UI flows (including the login button and profile setup dialog) so the interface reflects a shared/public mode.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppLayout.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-adjust-messaging-and-send-reminder-as-message-ux-to-work-in-shared-public-mode-without-requiring-users-to-enter-principal-ids",
+      "featureTitle": "Adjust messaging and “send reminder as message” UX to work in shared/public mode without requiring users to enter Principal IDs.",
+      "files": [
+        "frontend/src/components/messaging/MessageComposer.tsx",
+        "frontend/src/components/messaging/MessagesList.tsx",
+        "frontend/src/components/messaging/MessagesView.tsx",
+        "frontend/src/components/reminders/SendReminderDialog.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

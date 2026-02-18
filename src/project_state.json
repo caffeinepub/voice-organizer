@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Organizer app with voice features and a built-in messenger for sending reminders, with no login (shared access for everyone).",
+  "architectural_notes": [
+    "No authentication/login: app operates in a public/shared mode accessible to all users."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-an-organizer-app-that-lets-an-authenticated-user-create-view-edit-and-delete-reminders-with-a-title-optional-notes-due-date-time-and-completion-status",
+      "title": "Create an organizer app that lets an authenticated user create, view, edit, and delete reminders with a title, optional notes, due date/time, and completion status.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-voice-features-so-users-can-dictate-reminder-content-and-message-text-using-in-browser-speech-to-text-and-optionally-read-a-reminder-aloud-using-text-to-speech",
+      "title": "Add voice features so users can dictate reminder content and message text using in-browser speech-to-text, and optionally read a reminder aloud using text-to-speech.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-in-app-messenger-where-authenticated-users-can-send-and-receive-messages-including-the-ability-to-send-a-reminder-as-a-message",
+      "title": "Implement an in-app messenger where authenticated users can send and receive messages, including the ability to send a reminder as a message.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-reminder-notifications-inside-the-app-by-showing-a-prominent-due-now-section-and-triggering-an-in-app-alert-when-a-reminder-becomes-due-while-the-app-is-open",
+      "title": "Provide reminder notifications inside the app by showing a prominent 'Due now' section and triggering an in-app alert when a reminder becomes due (while the app is open).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-and-implement-a-coherent-visual-theme-colors-typography-spacing-and-layout-for-the-organizer-messenger-app-and-apply-it-consistently-across-all-screens",
+      "title": "Design and implement a coherent visual theme (colors, typography, spacing, and layout) for the organizer + messenger app and apply it consistently across all screens.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-required-static-images-and-render-them-in-the-ui-from-frontend-public-assets-generated-no-backend-image-serving",
+      "title": "Generate required static images and render them in the UI from frontend/public/assets/generated (no backend image serving).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-react-app-so-it-does-not-require-internet-identity-login-to-use-the-reminders-and-messaging-features-the-main-app-ui-must-be-accessible-immediately-on-load",
+      "title": "Update the React app so it does not require Internet Identity login to use the reminders and messaging features; the main app UI must be accessible immediately on load.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-or-disable-all-login-logout-and-first-time-profile-setup-ui-flows-including-the-login-button-and-profile-setup-dialog-so-the-interface-reflects-a-shared-public-mode",
+      "title": "Remove or disable all login/logout and first-time profile setup UI flows (including the login button and profile setup dialog) so the interface reflects a shared/public mode.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adjust-messaging-and-send-reminder-as-message-ux-to-work-in-shared-public-mode-without-requiring-users-to-enter-principal-ids",
+      "title": "Adjust messaging and “send reminder as message” UX to work in shared/public mode without requiring users to enter Principal IDs.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Build an organizer app with voice capability and an in-app messenger to send reminders.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Remove authentication/login and make the app usable by everyone without signing in (shared/public access).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Change backend authorization logic so anonymous (unauthenticated) callers can create, read, update, and delete reminders, and can send/read/delete messages without receiving authorization traps.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "VoiceMate",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

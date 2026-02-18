@@ -1,0 +1,92 @@
+{
+  "kind": "build_request",
+  "title": "Remove login and make the app publicly usable by everyone",
+  "projectName": "VoiceMate",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "text": "Update the React app so it does not require Internet Identity login to use the reminders and messaging features; the main app UI must be accessible immediately on load.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "with l no login used for everyone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When opening the app in a fresh browser session, the user can access Reminders and Messages without seeing a login gate screen.",
+        "No UI flow blocks usage due to missing authentication (e.g., no forced login prompts)."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Remove or disable all login/logout and first-time profile setup UI flows (including the login button and profile setup dialog) so the interface reflects a shared/public mode.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "with l no login used for everyone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The header no longer shows a Login/Logout control.",
+        "The app does not prompt users to set up a profile name before using the app.",
+        "Any user-facing text referencing “Login with Internet Identity” or “Recipient’s Internet Identity Principal” is removed or replaced with public-mode wording in English."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Change backend authorization logic so anonymous (unauthenticated) callers can create, read, update, and delete reminders, and can send/read/delete messages without receiving authorization traps.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "with l no login used for everyone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend calls for reminders/messages succeed for anonymous callers (no Runtime.trap with Unauthorized messages for normal usage).",
+        "Existing reminders/messages CRUD endpoints continue to function, but no longer require Internet Identity login."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Adjust messaging and “send reminder as message” UX to work in shared/public mode without requiring users to enter Principal IDs.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "with l no login used for everyone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The message composer does not require a recipient Principal ID field to send a message.",
+        "The “Send Reminder as Message” dialog does not require a recipient Principal ID field to send a reminder message.",
+        "Messages view remains usable without a user principal (e.g., it does not rely on per-user inbox/sent filtering that breaks without login)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single-actor Motoko canister (all logic in backend/main.mo).",
+    "Do not edit files under frontend/src/components/ui (compose them only).",
+    "Do not edit immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui."
+  ],
+  "nonGoals": [
+    "Adding any new authentication provider (only Internet Identity exists, and this request removes the need to use it).",
+    "Implementing per-user private data separation without login (this request is for shared/public access).",
+    "Adding external databases or off-chain persistence."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
