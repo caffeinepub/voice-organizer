@@ -1,17 +1,35 @@
-import { useDeleteMessage } from '../../hooks/useQueries';
+import { useDeleteMessage, useGetUserProfile } from '../../hooks/useQueries';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Trash2, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Message } from '../../backend';
+import { Principal } from '@dfinity/principal';
 
 interface MessagesListProps {
   messages: Message[];
 }
 
+function UserDisplay({ userPrincipal }: { userPrincipal: Principal }) {
+  const { data: profile } = useGetUserProfile(userPrincipal);
+  const principalStr = userPrincipal.toString();
+  
+  if (profile?.name) {
+    return <span className="font-medium">{profile.name}</span>;
+  }
+  
+  return (
+    <span className="font-mono text-xs">
+      {principalStr.slice(0, 8)}...{principalStr.slice(-6)}
+    </span>
+  );
+}
+
 export default function MessagesList({ messages }: MessagesListProps) {
   const { mutate: deleteMessage } = useDeleteMessage();
+  const { principal } = useCurrentUser();
 
   const handleDelete = (id: bigint) => {
     if (confirm('Are you sure you want to delete this message?')) {
@@ -40,18 +58,27 @@ export default function MessagesList({ messages }: MessagesListProps) {
   return (
     <div className="space-y-3">
       {messages.map(message => {
+        const isSender = principal && message.sender.toString() === principal;
+        
         return (
           <Card key={message.id.toString()}>
             <CardContent className="p-4">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <Badge variant={isSender ? 'default' : 'secondary'}>
+                      {isSender ? 'Sent' : 'Received'}
+                    </Badge>
                     {message.isReminder && (
                       <Badge variant="outline" className="gap-1">
                         <Calendar className="w-3 h-3" />
                         Reminder
                       </Badge>
                     )}
+                    <span className="text-xs text-muted-foreground">
+                      {isSender ? 'To: ' : 'From: '}
+                      <UserDisplay userPrincipal={isSender ? message.recipient : message.sender} />
+                    </span>
                   </div>
                   <p className="mb-2">{message.content}</p>
                   {message.reminder && (

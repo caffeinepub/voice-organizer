@@ -1,0 +1,23 @@
+{
+  "frontend/src/index.css": "Global styles with warm neutral OKLCH color palette (terracotta primary, sand secondary, amber accent) and voice pulse animation for speech indicators.",
+  "frontend/src/App.tsx": "Main app component that shows landing page for unauthenticated users, profile setup dialog for first-time users, and the main app layout with reminders/messages views for authenticated users with profiles.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations with user-specific data fetching, recipient parameters for messaging, and proper authentication-based query keys.",
+  "frontend/src/hooks/useCurrentUser.ts": "Hook that provides current user authentication state, identity, principal, and profile information; works without requiring authentication.",
+  "frontend/src/hooks/useSpeechToText.ts": "Browser SpeechRecognition wrapper hook for voice dictation with support detection, error handling, and transcript management.",
+  "frontend/src/hooks/useTextToSpeech.ts": "Browser speechSynthesis wrapper hook for text-to-speech with speaking state and support detection.",
+  "frontend/src/hooks/useDueNowReminders.ts": "Hook that filters and polls for due reminders every 30 seconds, returning reminders past their due date that aren't completed.",
+  "frontend/src/components/auth/LoginButton.tsx": "Internet Identity login/logout button with loading states and query cache clearing on logout.",
+  "frontend/src/components/auth/ProfileSetupDialog.tsx": "First-login dialog that prompts authenticated users for their display name and saves profile to backend.",
+  "frontend/src/components/layout/AppLayout.tsx": "Shared layout with header showing user's display name, navigation between reminders/messages, login button, and footer with attribution.",
+  "frontend/src/components/voice/MicButton.tsx": "Microphone button for voice dictation that integrates speech-to-text with visual feedback and fallback messaging for unsupported browsers.",
+  "frontend/src/components/reminders/ReminderEditor.tsx": "Create/edit reminder dialog with title, notes, due date/time fields and voice dictation support for title and notes.",
+  "frontend/src/components/reminders/RemindersList.tsx": "Displays reminders list with filtering (all/upcoming/completed), completion toggle, edit, delete, speak, and send-as-message actions.",
+  "frontend/src/components/reminders/ReminderSpeakButton.tsx": "Button that reads reminder content aloud using text-to-speech with support detection and speaking state indicator.",
+  "frontend/src/components/reminders/SendReminderDialog.tsx": "Dialog for sending a reminder as a message with recipient Principal ID input field, validation, and helper text.",
+  "frontend/src/components/reminders/DueNowPanel.tsx": "Prominent alert panel showing currently due reminders with quick complete action.",
+  "frontend/src/components/reminders/RemindersView.tsx": "Main reminders screen that composes due now panel, reminders list, and new reminder button.",
+  "frontend/src/components/messaging/MessageComposer.tsx": "Message composition form with recipient Principal ID input field, content textarea with voice dictation support, and validation for both fields.",
+  "frontend/src/components/messaging/MessagesList.tsx": "Displays messages with sender/recipient display names fetched from profiles, sent/received badges, reminder payloads, and delete action.",
+  "frontend/src/components/messaging/MessagesView.tsx": "Main messages screen showing user's Principal ID with copy button, message composer, and list of received/sent messages for the authenticated user.",
+  "frontend/src/components/landing/LandingPage.tsx": "Landing page component with hero section, feature grid showcasing reminders/messaging/voice/privacy, and prominent login button for unauthenticated visitors."
+}

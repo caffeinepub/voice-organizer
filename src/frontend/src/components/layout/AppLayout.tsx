@@ -1,5 +1,7 @@
 import { Calendar, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import LoginButton from '../auth/LoginButton';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -8,6 +10,8 @@ interface AppLayoutProps {
 }
 
 export default function AppLayout({ children, currentView, onViewChange }: AppLayoutProps) {
+  const { userProfile } = useCurrentUser();
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
@@ -21,27 +25,32 @@ export default function AppLayout({ children, currentView, onViewChange }: AppLa
               />
               <div>
                 <h1 className="text-xl font-bold">VoiceMate</h1>
-                <p className="text-sm text-muted-foreground">Your intelligent organizer</p>
+                <p className="text-sm text-muted-foreground">
+                  {userProfile ? `Welcome, ${userProfile.name}` : 'Your intelligent organizer'}
+                </p>
               </div>
             </div>
-            <nav className="hidden md:flex gap-2">
-              <Button
-                variant={currentView === 'reminders' ? 'default' : 'ghost'}
-                onClick={() => onViewChange('reminders')}
-                className="gap-2"
-              >
-                <Calendar className="w-4 h-4" />
-                Reminders
-              </Button>
-              <Button
-                variant={currentView === 'messages' ? 'default' : 'ghost'}
-                onClick={() => onViewChange('messages')}
-                className="gap-2"
-              >
-                <MessageSquare className="w-4 h-4" />
-                Messages
-              </Button>
-            </nav>
+            <div className="flex items-center gap-4">
+              <nav className="hidden md:flex gap-2">
+                <Button
+                  variant={currentView === 'reminders' ? 'default' : 'ghost'}
+                  onClick={() => onViewChange('reminders')}
+                  className="gap-2"
+                >
+                  <Calendar className="w-4 h-4" />
+                  Reminders
+                </Button>
+                <Button
+                  variant={currentView === 'messages' ? 'default' : 'ghost'}
+                  onClick={() => onViewChange('messages')}
+                  className="gap-2"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  Messages
+                </Button>
+              </nav>
+              <LoginButton />
+            </div>
           </div>
           <nav className="flex md:hidden gap-2 mt-4">
             <Button

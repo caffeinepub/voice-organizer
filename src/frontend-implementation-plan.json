@@ -1,87 +1,106 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "VoiceMate public mode (no Internet Identity login required)",
+  "title": "Add per-user accounts with privacy controls and create a landing page",
   "requirements": [
     {
-      "id": "REQ-7",
-      "summary": "Make the main app UI (Reminders and Messages) accessible immediately without an Internet Identity login gate.",
+      "id": "REQ-12",
+      "summary": "Re-enable Internet Identity authentication requirement so users must log in before accessing the organizer and messaging features",
       "acceptanceCriteria": [
-        "When opening the app in a fresh browser session, the user can access Reminders and Messages without seeing a login gate screen.",
-        "No UI flow blocks usage due to missing authentication (e.g., no forced login prompts)."
+        "LoginButton component is visible and functional",
+        "Unauthenticated users see a landing page instead of the main app",
+        "After login, users are routed to their personal reminders view"
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Remove the unauthenticated landing/login gate and always render the main AppLayout with RemindersView/MessagesView on initial load; keep the existing ThemeProvider and Toaster wiring. Ensure no logic branches require identity before rendering the core UI."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Update reminders/messages queries to work in public mode by fetching shared/public data without depending on an authenticated principal; remove any dependency on identity-gated calls during queryFn execution so queries run successfully for anonymous users."
+          "description": "Add authentication gating to show landing page for unauthenticated users and main app for authenticated users. Use the authorization component to ensure users must be logged in. After successful login, route users to their personal reminders view. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-8",
-      "summary": "Remove/disable login/logout controls and first-time profile setup UI so the interface reflects shared/public mode with no Internet Identity wording.",
+      "id": "REQ-13",
+      "summary": "Create a landing page that displays before authentication, introducing the app's purpose and features with a prominent login button",
       "acceptanceCriteria": [
-        "The header no longer shows a Login/Logout control.",
-        "The app does not prompt users to set up a profile name before using the app.",
-        "Any user-facing text referencing “Login with Internet Identity” or “Recipient’s Internet Identity Principal” is removed or replaced with public-mode wording in English."
+        "Landing page is shown to unauthenticated visitors",
+        "Page includes app name, tagline, and brief description of features (reminders, messaging, voice input)",
+        "Login button is clearly visible and functional",
+        "After successful login, user is redirected to the main app view"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/layout/AppLayout.tsx",
-          "operation": "modify",
-          "description": "Remove the LoginButton from the header UI and adjust header layout accordingly; ensure the navigation between Reminders and Messages remains available and functional."
+          "path": "frontend/src/components/landing/LandingPage.tsx",
+          "operation": "create",
+          "description": "Create a landing page component that displays the app name (Shared Organizer), tagline, and brief description of features including reminders, messaging, and voice input. Include the generated hero illustration at frontend/public/assets/generated/hero.dim_1600x600.png and app logo at frontend/public/assets/generated/app-logo.dim_512x512.png. Feature a prominent LoginButton component. Use responsive design with Tailwind CSS matching the existing warm color palette."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Remove ProfileSetupDialog gating and any profile-setup logic/conditions so users are never prompted to set a name before using the app."
-        },
-        {
-          "path": "frontend/src/hooks/useCurrentUser.ts",
-          "operation": "modify",
-          "description": "Adjust the current-user helper to avoid implying authentication is required (e.g., ensure callers can safely use it when identity is absent and avoid encouraging login-dependent flows); keep it compatible with existing consumers."
+          "description": "Wire the LandingPage component into App.tsx to display it for unauthenticated users, replacing the direct rendering of AppLayout. Import and render LandingPage when user is not authenticated."
         }
       ]
     },
     {
-      "id": "REQ-10",
-      "summary": "Update messaging and “send reminder as message” UX for shared/public mode so sending does not require entering Principal IDs and messages remain usable without a user principal.",
+      "id": "REQ-14",
+      "summary": "Update messaging system to support sending messages to specific authenticated users by selecting or entering their identity",
       "acceptanceCriteria": [
-        "The message composer does not require a recipient Principal ID field to send a message.",
-        "The “Send Reminder as Message” dialog does not require a recipient Principal ID field to send a reminder message.",
-        "Messages view remains usable without a user principal (e.g., it does not rely on per-user inbox/sent filtering that breaks without login)."
+        "MessageComposer includes a recipient selector or input field",
+        "Backend stores recipient information with each message",
+        "Users can only view messages they sent or messages sent to them",
+        "Sending a reminder as a message includes proper recipient routing"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/messaging/MessageComposer.tsx",
           "operation": "modify",
-          "description": "Remove the recipient Principal ID input and validation; update the form so it only collects message content (including voice input) and can send in public mode without requiring any authentication-related user input."
-        },
-        {
-          "path": "frontend/src/components/reminders/SendReminderDialog.tsx",
-          "operation": "modify",
-          "description": "Remove the recipient Principal ID input and any related validation/help text (including references to Internet Identity); update copy to reflect shared/public sending behavior."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Update useSendMessage and useSendReminderAsMessage mutations to no longer require a recipient string from the UI; internally use a shared/public recipient strategy compatible with the backend interface and ensure message/reminder-message send actions work without Principal text input."
+          "description": "Add a recipient input field to MessageComposer allowing users to enter or paste a Principal ID of the message recipient. Include validation that the recipient field is filled before sending. Update the sendMessage mutation call to pass the recipient Principal. Provide helper text explaining how to obtain a Principal ID."
         },
         {
           "path": "frontend/src/components/messaging/MessagesView.tsx",
           "operation": "modify",
-          "description": "Remove per-user inbox/sent filtering that depends on the current principal; present messages in a public/shared-friendly way (e.g., show all messages or a non-principal-based grouping) so the view remains functional when identity/principal is absent."
+          "description": "Update MessagesView to fetch and display only messages for the current authenticated user (messages they sent or received). Replace the hardcoded user parameter with the caller's Principal from useCurrentUser. Add loading and error states for the authenticated user's message list."
+        },
+        {
+          "path": "frontend/src/components/reminders/SendReminderDialog.tsx",
+          "operation": "modify",
+          "description": "Add a recipient input field to SendReminderDialog for entering the Principal ID of the message recipient. Update the sendReminderAsMessage mutation to include the recipient parameter. Include validation and helper text similar to MessageComposer."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update useGetMessages hook to accept a user Principal parameter and fetch messages for that specific user. Ensure the query key includes the user parameter for proper caching. Update useSendMessage and useSendReminderAsMessage mutations to accept and pass recipient Principal parameters to backend methods."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Restore ProfileSetupDialog flow for first-time authenticated users to set their display name",
+      "acceptanceCriteria": [
+        "First-time users see profile setup dialog after logging in",
+        "User can enter and save their display name",
+        "Display name is shown in the app header and messaging UI"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add ProfileSetupDialog to App.tsx and show it when an authenticated user has no profile (userProfile is null and profile query is fetched). Use the authorization component's pattern to prevent modal flash by checking both authentication status and profile fetch completion. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update useGetCallerUserProfile hook to properly handle actor dependency and prevent profile setup modal flash. Follow the authorization component's pattern: return isLoading as actorFetching || query.isLoading and isFetched as !!actor && query.isFetched. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Display the current user's display name from their profile in the app header. Use useCurrentUser hook to access the caller's UserProfile and show profile.name when available. Add a fallback for when profile is loading or unavailable."
         },
         {
           "path": "frontend/src/components/messaging/MessagesList.tsx",
           "operation": "modify",
-          "description": "Update list rendering to remove reliance on current principal for display logic; adjust any 'From/To' labeling and delete-button rules so the UI remains coherent in shared/public mode."
+          "description": "Update MessagesList to display sender and recipient display names instead of Principal IDs. Use the getUserProfile backend method to fetch profiles for message senders and recipients. Show the display name with a fallback to truncated Principal ID if profile is unavailable."
         }
       ]
     }

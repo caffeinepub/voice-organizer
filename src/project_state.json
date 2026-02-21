@@ -1,12 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 7,
   "summary": "Organizer app with voice features and a built-in messenger for sending reminders, with no login (shared access for everyone).",
   "architectural_notes": [
     "No authentication/login: app operates in a public/shared mode accessible to all users."
   ],
   "known_issues": [],
   "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Hero illustration for landing page showing a person organizing tasks with voice input (hero-landing.dim_1200x600.png)\n- App logo icon for landing page header (logo-icon.dim_128x128.png)",
   "existing_features": [
     {
       "id": "feature-create-an-organizer-app-that-lets-an-authenticated-user-create-view-edit-and-delete-reminders-with-a-title-optional-notes-due-date-time-and-completion-status",
@@ -79,6 +80,38 @@
         "REQ-10"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-re-enable-internet-identity-authentication-requirement-so-users-must-log-in-before-accessing-the-organizer-and-messaging-features",
+      "title": "Re-enable Internet Identity authentication requirement so users must log in before accessing the organizer and messaging features",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-landing-page-that-displays-before-authentication-introducing-the-app-s-purpose-and-features-with-a-prominent-login-button",
+      "title": "Create a landing page that displays before authentication, introducing the app's purpose and features with a prominent login button",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-messaging-system-to-support-sending-messages-to-specific-authenticated-users-by-selecting-or-entering-their-identity",
+      "title": "Update messaging system to support sending messages to specific authenticated users by selecting or entering their identity",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-restore-profilesetupdialog-flow-for-first-time-authenticated-users-to-set-their-display-name",
+      "title": "Restore ProfileSetupDialog flow for first-time authenticated users to set their display name",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -99,6 +132,26 @@
       "summary": "Change backend authorization logic so anonymous (unauthenticated) callers can create, read, update, and delete reminders, and can send/read/delete messages without receiving authorization traps.",
       "reqIds": [
         "REQ-9"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add privacy to each account (implement user accounts with privacy controls).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Create a front page/landing page for the app.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Implement per-user account system in the backend where each authenticated user has their own isolated reminders and messages storage, replacing the current shared public-mode data model",
+      "reqIds": [
+        "REQ-11"
       ],
       "status": "pending"
     }

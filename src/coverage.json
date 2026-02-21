@@ -1,78 +1,93 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T14:16:25.238Z",
+  "generatedAt": "2026-02-21T15:16:13.964Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
-    "implemented": 3,
+    "total": 5,
+    "implemented": 4,
     "items": [
       {
-        "id": "REQ-10",
-        "summary": "Adjust messaging and “send reminder as message” UX to work in shared/public mode without requiring users to enter Principal IDs.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/messaging/MessageComposer.tsx",
-          "frontend/src/components/reminders/SendReminderDialog.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/components/messaging/MessagesView.tsx",
-          "frontend/src/components/messaging/MessagesList.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/messaging/MessageComposer.tsx",
-          "frontend/src/components/reminders/SendReminderDialog.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/components/messaging/MessagesView.tsx",
-          "frontend/src/components/messaging/MessagesList.tsx"
-        ]
+        "id": "REQ-11",
+        "summary": "Implement per-user account system in the backend where each authenticated user has their own isolated reminders and messages storage, replacing the current shared public-mode data model",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
       },
       {
-        "id": "REQ-7",
-        "summary": "Update the React app so it does not require Internet Identity login to use the reminders and messaging features; the main app UI must be accessible immediately on load.",
+        "id": "REQ-12",
+        "summary": "Re-enable Internet Identity authentication requirement so users must log in before accessing the organizer and messaging features",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/hooks/useQueries.ts"
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ]
-      },
-      {
-        "id": "REQ-8",
-        "summary": "Remove or disable all login/logout and first-time profile setup UI flows (including the login button and profile setup dialog) so the interface reflects a shared/public mode.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/layout/AppLayout.tsx",
-          "frontend/src/App.tsx",
-          "frontend/src/hooks/useCurrentUser.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/layout/AppLayout.tsx",
           "frontend/src/App.tsx"
         ]
       },
       {
-        "id": "REQ-9",
-        "summary": "Change backend authorization logic so anonymous (unauthenticated) callers can create, read, update, and delete reminders, and can send/read/delete messages without receiving authorization traps.",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
+        "id": "REQ-13",
+        "summary": "Create a landing page that displays before authentication, introducing the app's purpose and features with a prominent login button",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/landing/LandingPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/landing/LandingPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-14",
+        "summary": "Update messaging system to support sending messages to specific authenticated users by selecting or entering their identity",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/messaging/MessageComposer.tsx",
+          "frontend/src/components/messaging/MessagesView.tsx",
+          "frontend/src/components/reminders/SendReminderDialog.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/messaging/MessageComposer.tsx",
+          "frontend/src/components/messaging/MessagesView.tsx",
+          "frontend/src/components/reminders/SendReminderDialog.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ]
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Restore ProfileSetupDialog flow for first-time authenticated users to set their display name",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/App.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/layout/AppLayout.tsx",
+          "frontend/src/components/messaging/MessagesList.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/layout/AppLayout.tsx",
+          "frontend/src/components/messaging/MessagesList.tsx"
+        ]
       }
     ]
   },
   "changedFiles": [
     "backend/main.mo",
     "build-request.json",
-    "build-template/README.md",
+    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/hero-landing.dim_1200x600.png",
+    "frontend/public/assets/generated/logo-icon.dim_128x128.png",
     "frontend/src/App.tsx",
+    "frontend/src/components/landing/LandingPage.tsx",
     "frontend/src/components/layout/AppLayout.tsx",
     "frontend/src/components/messaging/MessageComposer.tsx",
     "frontend/src/components/messaging/MessagesList.tsx",
