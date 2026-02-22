@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 9,
   "summary": "Organizer app with voice features and a built-in messenger for sending reminders, with no login (shared access for everyone).",
   "architectural_notes": [
     "No authentication/login: app operates in a public/shared mode accessible to all users."
   ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Hero illustration for landing page showing a person organizing tasks with voice input (hero-landing.dim_1200x600.png)\n- App logo icon for landing page header (logo-icon.dim_128x128.png)",
+  "imageRequirements": "## Required Images\n- VoiceMate app logo with microphone, notification bell, and speech bubble design in blue-to-green gradient colors with text 'VoiceMate Your Personal Organizer' (voicemate-logo.dim_800x800.png)",
   "existing_features": [
     {
       "id": "feature-create-an-organizer-app-that-lets-an-authenticated-user-create-view-edit-and-delete-reminders-with-a-title-optional-notes-due-date-time-and-completion-status",
@@ -112,6 +112,22 @@
         "REQ-15"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-app-logo-with-the-user-provided-voicemate-logo-image-chatgpt-image-feb-22-2026-06-42-56-pm-png-throughout-the-application",
+      "title": "Replace the current app logo with the user-provided VoiceMate logo image (ChatGPT Image Feb 22, 2026, 06_42_56 PM.png) throughout the application",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-render-the-generated-logo-image-as-a-static-asset-from-frontend-public-assets-generated-without-routing-through-the-backend",
+      "title": "Render the generated logo image as a static asset from frontend/public/assets/generated without routing through the backend",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -153,6 +169,12 @@
       "reqIds": [
         "REQ-11"
       ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Replace the current app logo with a user-provided image.",
+      "reqIds": [],
       "status": "pending"
     }
   ],

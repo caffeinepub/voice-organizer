@@ -1,118 +1,57 @@
 {
   "kind": "build_request",
-  "title": "Add per-user accounts with privacy controls and create a landing page",
-  "projectName": "Shared Organizer",
+  "title": "Replace app logo with user-provided image",
+  "projectName": "VoiceMate",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-11",
-      "text": "Implement per-user account system in the backend where each authenticated user has their own isolated reminders and messages storage, replacing the current shared public-mode data model",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ],
-        "quotes": [
-          "add  privacy to each account"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend stores reminders and messages per Principal ID instead of in shared maps",
-        "Each user can only access their own reminders and messages",
-        "Authorization checks prevent one user from viewing or modifying another user's data"
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "text": "Re-enable Internet Identity authentication requirement so users must log in before accessing the organizer and messaging features",
+      "id": "REQ-16",
+      "text": "Replace the current app logo with the user-provided VoiceMate logo image (ChatGPT Image Feb 22, 2026, 06_42_56 PM.png) throughout the application",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-last"
         ],
         "quotes": [
-          "add  privacy to each account"
+          "put this as a logo"
         ]
       },
       "acceptanceCriteria": [
-        "LoginButton component is visible and functional",
-        "Unauthenticated users see a landing page instead of the main app",
-        "After login, users are routed to their personal reminders view"
+        "The uploaded VoiceMate logo image replaces the existing logo in the landing page hero section",
+        "The uploaded VoiceMate logo image replaces the existing logo in the AppLayout header",
+        "Logo image is properly sized and styled to fit the existing layout design",
+        "Logo image displays correctly in both light and dark themes"
       ]
     },
     {
-      "id": "REQ-13",
-      "text": "Create a landing page that displays before authentication, introducing the app's purpose and features with a prominent login button",
+      "id": "REQ-17",
+      "text": "Render the generated logo image as a static asset from frontend/public/assets/generated without routing through the backend",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-last"
-        ],
-        "quotes": [
-          "create front page"
         ]
       },
       "acceptanceCriteria": [
-        "Landing page is shown to unauthenticated visitors",
-        "Page includes app name, tagline, and brief description of features (reminders, messaging, voice input)",
-        "Login button is clearly visible and functional",
-        "After successful login, user is redirected to the main app view"
-      ]
-    },
-    {
-      "id": "REQ-14",
-      "text": "Update messaging system to support sending messages to specific authenticated users by selecting or entering their identity",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ],
-        "quotes": [
-          "add  privacy to each account"
-        ]
-      },
-      "acceptanceCriteria": [
-        "MessageComposer includes a recipient selector or input field",
-        "Backend stores recipient information with each message",
-        "Users can only view messages they sent or messages sent to them",
-        "Sending a reminder as a message includes proper recipient routing"
-      ]
-    },
-    {
-      "id": "REQ-15",
-      "text": "Restore ProfileSetupDialog flow for first-time authenticated users to set their display name",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ],
-        "quotes": [
-          "add  privacy to each account"
-        ]
-      },
-      "acceptanceCriteria": [
-        "First-time users see profile setup dialog after logging in",
-        "User can enter and save their display name",
-        "Display name is shown in the app header and messaging UI"
+        "Logo image is served from frontend/public/assets/generated directory",
+        "Logo image loads correctly on initial page render",
+        "No backend endpoints are used for serving the logo image"
       ]
     }
   ],
   "constraints": [
-    "Use single-actor Motoko architecture in backend/main.mo",
-    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
-    "Maintain compatibility with existing React Query hooks in useQueries.ts"
+    "Do not modify the backend for image serving",
+    "Do not alter the frontend/src/hooks directory files",
+    "Do not modify the frontend/src/components/ui directory files"
   ],
   "nonGoals": [
-    "Implementing role-based access control or admin features",
-    "Adding user-to-user friend requests or contact lists",
-    "Supporting group messaging or channels",
-    "Implementing password-based authentication (only Internet Identity)",
-    "Adding profile pictures or extended user profiles beyond display name"
+    "Creating a logo upload feature",
+    "Adding logo customization settings",
+    "Supporting multiple logo variants"
   ],
   "imageRequirements": {
     "required": [
-      "Hero illustration for landing page showing a person organizing tasks with voice input (hero-landing.dim_1200x600.png)",
-      "App logo icon for landing page header (logo-icon.dim_128x128.png)"
+      "VoiceMate app logo with microphone, notification bell, and speech bubble design in blue-to-green gradient colors with text 'VoiceMate Your Personal Organizer' (voicemate-logo.dim_800x800.png)"
     ],
     "edits": []
   }

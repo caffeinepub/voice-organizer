@@ -19,9 +19,9 @@ export default function AppLayout({ children, currentView, onViewChange }: AppLa
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <img 
-                src="/assets/generated/app-logo.dim_512x512.png" 
-                alt="VoiceMate" 
-                className="w-10 h-10 rounded-lg"
+                src="/assets/generated/voicemate-logo.dim_800x800.png" 
+                alt="VoiceMate Logo" 
+                className="w-10 h-10 object-contain"
               />
               <div>
                 <h1 className="text-xl font-bold">VoiceMate</h1>

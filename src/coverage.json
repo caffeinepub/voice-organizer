@@ -1,99 +1,51 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-21T15:16:13.964Z",
+  "generatedAt": "2026-02-22T13:16:19.070Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 4,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-11",
-        "summary": "Implement per-user account system in the backend where each authenticated user has their own isolated reminders and messages storage, replacing the current shared public-mode data model",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-12",
-        "summary": "Re-enable Internet Identity authentication requirement so users must log in before accessing the organizer and messaging features",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-13",
-        "summary": "Create a landing page that displays before authentication, introducing the app's purpose and features with a prominent login button",
+        "id": "REQ-16",
+        "summary": "Replace the current app logo with the user-provided VoiceMate logo image (ChatGPT Image Feb 22, 2026, 06_42_56 PM.png) throughout the application",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/landing/LandingPage.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/components/layout/AppLayout.tsx"
         ],
         "matchedFiles": [
           "frontend/src/components/landing/LandingPage.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/components/layout/AppLayout.tsx"
         ]
       },
       {
-        "id": "REQ-14",
-        "summary": "Update messaging system to support sending messages to specific authenticated users by selecting or entering their identity",
+        "id": "REQ-17",
+        "summary": "Render the generated logo image as a static asset from frontend/public/assets/generated without routing through the backend",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/messaging/MessageComposer.tsx",
-          "frontend/src/components/messaging/MessagesView.tsx",
-          "frontend/src/components/reminders/SendReminderDialog.tsx",
-          "frontend/src/hooks/useQueries.ts"
+          "frontend/src/components/landing/LandingPage.tsx",
+          "frontend/src/components/layout/AppLayout.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/messaging/MessageComposer.tsx",
-          "frontend/src/components/messaging/MessagesView.tsx",
-          "frontend/src/components/reminders/SendReminderDialog.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ]
-      },
-      {
-        "id": "REQ-15",
-        "summary": "Restore ProfileSetupDialog flow for first-time authenticated users to set their display name",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/components/layout/AppLayout.tsx",
-          "frontend/src/components/messaging/MessagesList.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/components/layout/AppLayout.tsx",
-          "frontend/src/components/messaging/MessagesList.tsx"
+          "frontend/src/components/landing/LandingPage.tsx",
+          "frontend/src/components/layout/AppLayout.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
     "build-request.json",
-    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/hero-landing.dim_1200x600.png",
-    "frontend/public/assets/generated/logo-icon.dim_128x128.png",
-    "frontend/src/App.tsx",
+    "frontend/public/assets/generated/voicemate-logo.dim_800x800.png",
     "frontend/src/components/landing/LandingPage.tsx",
     "frontend/src/components/layout/AppLayout.tsx",
-    "frontend/src/components/messaging/MessageComposer.tsx",
-    "frontend/src/components/messaging/MessagesList.tsx",
-    "frontend/src/components/messaging/MessagesView.tsx",
-    "frontend/src/components/reminders/SendReminderDialog.tsx",
-    "frontend/src/hooks/useQueries.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -1,106 +1,48 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add per-user accounts with privacy controls and create a landing page",
+  "title": "Replace app logo with user-provided VoiceMate logo image",
   "requirements": [
     {
-      "id": "REQ-12",
-      "summary": "Re-enable Internet Identity authentication requirement so users must log in before accessing the organizer and messaging features",
+      "id": "REQ-16",
+      "summary": "Replace the current app logo with the user-provided VoiceMate logo image throughout the application",
       "acceptanceCriteria": [
-        "LoginButton component is visible and functional",
-        "Unauthenticated users see a landing page instead of the main app",
-        "After login, users are routed to their personal reminders view"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add authentication gating to show landing page for unauthenticated users and main app for authenticated users. Use the authorization component to ensure users must be logged in. After successful login, route users to their personal reminders view. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-13",
-      "summary": "Create a landing page that displays before authentication, introducing the app's purpose and features with a prominent login button",
-      "acceptanceCriteria": [
-        "Landing page is shown to unauthenticated visitors",
-        "Page includes app name, tagline, and brief description of features (reminders, messaging, voice input)",
-        "Login button is clearly visible and functional",
-        "After successful login, user is redirected to the main app view"
+        "The uploaded VoiceMate logo image replaces the existing logo in the landing page hero section",
+        "The uploaded VoiceMate logo image replaces the existing logo in the AppLayout header",
+        "Logo image is properly sized and styled to fit the existing layout design",
+        "Logo image displays correctly in both light and dark themes"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/landing/LandingPage.tsx",
-          "operation": "create",
-          "description": "Create a landing page component that displays the app name (Shared Organizer), tagline, and brief description of features including reminders, messaging, and voice input. Include the generated hero illustration at frontend/public/assets/generated/hero.dim_1600x600.png and app logo at frontend/public/assets/generated/app-logo.dim_512x512.png. Feature a prominent LoginButton component. Use responsive design with Tailwind CSS matching the existing warm color palette."
-        },
-        {
-          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wire the LandingPage component into App.tsx to display it for unauthenticated users, replacing the direct rendering of AppLayout. Import and render LandingPage when user is not authenticated."
-        }
-      ]
-    },
-    {
-      "id": "REQ-14",
-      "summary": "Update messaging system to support sending messages to specific authenticated users by selecting or entering their identity",
-      "acceptanceCriteria": [
-        "MessageComposer includes a recipient selector or input field",
-        "Backend stores recipient information with each message",
-        "Users can only view messages they sent or messages sent to them",
-        "Sending a reminder as a message includes proper recipient routing"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/messaging/MessageComposer.tsx",
-          "operation": "modify",
-          "description": "Add a recipient input field to MessageComposer allowing users to enter or paste a Principal ID of the message recipient. Include validation that the recipient field is filled before sending. Update the sendMessage mutation call to pass the recipient Principal. Provide helper text explaining how to obtain a Principal ID."
-        },
-        {
-          "path": "frontend/src/components/messaging/MessagesView.tsx",
-          "operation": "modify",
-          "description": "Update MessagesView to fetch and display only messages for the current authenticated user (messages they sent or received). Replace the hardcoded user parameter with the caller's Principal from useCurrentUser. Add loading and error states for the authenticated user's message list."
-        },
-        {
-          "path": "frontend/src/components/reminders/SendReminderDialog.tsx",
-          "operation": "modify",
-          "description": "Add a recipient input field to SendReminderDialog for entering the Principal ID of the message recipient. Update the sendReminderAsMessage mutation to include the recipient parameter. Include validation and helper text similar to MessageComposer."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Update useGetMessages hook to accept a user Principal parameter and fetch messages for that specific user. Ensure the query key includes the user parameter for proper caching. Update useSendMessage and useSendReminderAsMessage mutations to accept and pass recipient Principal parameters to backend methods."
-        }
-      ]
-    },
-    {
-      "id": "REQ-15",
-      "summary": "Restore ProfileSetupDialog flow for first-time authenticated users to set their display name",
-      "acceptanceCriteria": [
-        "First-time users see profile setup dialog after logging in",
-        "User can enter and save their display name",
-        "Display name is shown in the app header and messaging UI"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add ProfileSetupDialog to App.tsx and show it when an authenticated user has no profile (userProfile is null and profile query is fetched). Use the authorization component's pattern to prevent modal flash by checking both authentication status and profile fetch completion. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Update useGetCallerUserProfile hook to properly handle actor dependency and prevent profile setup modal flash. Follow the authorization component's pattern: return isLoading as actorFetching || query.isLoading and isFetched as !!actor && query.isFetched. Verify the component's usage instructions before implementing."
+          "description": "Replace the existing logo in the hero section with an img element that references the generated VoiceMate logo at frontend/public/assets/generated/voicemate-logo.dim_800x800.png. Ensure the image is properly sized and styled to fit the hero section layout, with appropriate alt text for accessibility. Apply styles that ensure the logo displays correctly in both light and dark themes."
         },
         {
           "path": "frontend/src/components/layout/AppLayout.tsx",
           "operation": "modify",
-          "description": "Display the current user's display name from their profile in the app header. Use useCurrentUser hook to access the caller's UserProfile and show profile.name when available. Add a fallback for when profile is loading or unavailable."
+          "description": "Replace the existing logo in the header branding section with an img element that references the generated VoiceMate logo at frontend/public/assets/generated/voicemate-logo.dim_800x800.png. Size the logo appropriately for the header (smaller than the hero version), ensure it maintains aspect ratio, and add appropriate alt text. Apply styles that ensure the logo displays correctly in both light and dark themes, maintaining visual consistency with the existing header design."
+        }
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "summary": "Render the generated logo image as a static asset from frontend/public/assets/generated without routing through the backend",
+      "acceptanceCriteria": [
+        "Logo image is served from frontend/public/assets/generated directory",
+        "Logo image loads correctly on initial page render",
+        "No backend endpoints are used for serving the logo image"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/landing/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Verify that the logo image src attribute uses the correct static asset path /assets/generated/voicemate-logo.dim_800x800.png (which maps to frontend/public/assets/generated/voicemate-logo.dim_800x800.png at build time). Ensure no HTTP calls or backend actor methods are used to fetch the logo image."
         },
         {
-          "path": "frontend/src/components/messaging/MessagesList.tsx",
+          "path": "frontend/src/components/layout/AppLayout.tsx",
           "operation": "modify",
-          "description": "Update MessagesList to display sender and recipient display names instead of Principal IDs. Use the getUserProfile backend method to fetch profiles for message senders and recipients. Show the display name with a fallback to truncated Principal ID if profile is unavailable."
+          "description": "Verify that the logo image src attribute uses the correct static asset path /assets/generated/voicemate-logo.dim_800x800.png (which maps to frontend/public/assets/generated/voicemate-logo.dim_800x800.png at build time). Ensure no HTTP calls or backend actor methods are used to fetch the logo image, and that it loads correctly on initial page render."
         }
       ]
     }
